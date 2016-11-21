@@ -1,0 +1,37 @@
+{% extends "my_first_app/base.html" %}
+
+{% load tethys_gizmos %}
+
+{% block app_navigation_items %}
+  <li class="title">Gages</li>
+  <li id="link-AllGages" {% if not gage_id %} class="active"{% endif %}>
+    <a href="{% url 'my_first_app:map' %}">All Gages</a>
+  </li>
+  <li id="link-Gage1" {% if gage_id == '1' %} class="active"{% endif %}>
+    <a href="{% url 'my_first_app:map_single' id=1 %}">Stream Gage 1</a>
+  </li>
+  <li id="link-Gage2" {% if gage_id == '2' %} class="active"{% endif %}>
+    <a href="{% url 'my_first_app:map_single' id=2 %}">Stream Gage 2</a>
+  </li>
+  <li id="link-Gage3" {% if gage_id == '3' %} class="active"{% endif %}>
+    <a href="{% url 'my_first_app:map_single' id=3 %}">Stream Gage 3</a>
+  </li>
+  <li id="link-Gage4" {% if gage_id == '4' %} class="active"{% endif %}>
+    <a href="{% url 'my_first_app:map_single' id=4 %}">Stream Gage 4</a>
+  </li>
+{% endblock %}
+
+{% block app_content %}
+  {% if gage_id %}
+    <h1 id="h1-SpecificGage">Stream Gage {{gage_id}}</h1>
+  {% else %}
+    <h1 id="h1-AllGages">Stream Gages</h1>
+  {% endif %}
+  <div id="gizmo-map">
+    {% gizmo map_view map_options %}
+  </div>
+{% endblock %}
+
+{% block app_actions %}
+  <a href="{% url 'my_first_app:home' %}" class="btn btn-default">Back</a>
+{% endblock %}
